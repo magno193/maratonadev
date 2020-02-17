@@ -64,6 +64,15 @@ header button {
     font-weight: bold;
 }
 
+.logo {
+    width: 120px;
+    margin: 70px 0;
+}
+
+header p {
+    font-size: 14px;
+}
+
 /* FORM */
 section.form {
     display: grid;
@@ -112,6 +121,35 @@ main .donors {
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
+.blood {
+    color:#ff4f4f;
+    font-weight: bold;
+    font-size: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.blood::before {
+    content: "";
+    background-color: #ff4f4f11;
+
+    width: 40px;
+    height: 40px;
+
+    /* Uma nova camada */
+    position: absolute;
+
+    /* Fazer gotinha */
+    border-radius: 50%;
+    border-top-right-radius: 0;
+    transform: rotate(-45deg);
+}
+
+/* FOOTER */
 footer {
     margin-top: auto;
     padding: 16px;
