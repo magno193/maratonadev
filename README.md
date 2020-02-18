@@ -8,8 +8,11 @@ Projeto focado em: HTML, CSS e Javascript.
 - Node.js LTS
 - Chocolatey
 - Yarn
+- PostgreSQL
+- Postbird
 
 ## Importações:
 - express: ``yarn add express``
 - nodemon: ``yarn add nodemon``
 - nunjucks: ``yarn add nunjucks``
+- pg: ``yarn add pg``

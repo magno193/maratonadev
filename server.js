@@ -8,6 +8,16 @@ server.use(express.static('public'));
 // Habilitar req.body do formulário
 server.use(express.urlencoded( { extended: true } ))
 
+// Configurar a conexão com o banco de dados
+const Pool = require('pg').Pool;
+
+const db = new Pool({
+    user: 'postgres',
+    password:'admin',
+    port: 5432,
+    database: 'doesangue'
+});
+
 // Configurando template engine
 const nunjucks = require("nunjucks");
 nunjucks.configure("./", {
@@ -15,29 +25,16 @@ nunjucks.configure("./", {
     noCache: true
 });
 
-// Lista dos doadores: Array
-const donors = [
-    {
-        name: "Alexandre Ferreira",
-        blood: "B+"
-    },
-    {
-        name: "Diego Fernandes",
-        blood: "AB+"
-    },
-    {
-        name: "Robson Marques",
-        blood: "A+"
-    },
-    {
-        name: "Mayk Brito",
-        blood: "O+"
-    }
-];
-
 // Caminho com uma funcionalidade de request e response
 server.get("/", (req, res) => {
-    return res.render("index.html", { donors })
+
+    db.query("SELECT * FROM donors", (err, result) => {
+        if (err) res.send("Erro de banco de dados.");
+
+        const donors = result.rows;
+        console.log(donors);
+        return res.render("index.html", { donors });
+    });
 });
 
 // Recebe os dados do formulário
@@ -46,14 +43,25 @@ server.post("/", (req, res) => {
     const email = req.body.email;
     const blood = req.body.blood;
 
-    // Coloca novo doador dentro da lista donors
-    donors.push({
-        name: name,
-        blood: blood
-    });
+    // Se houver dado vazio
+    if (name == "" || email == "" || blood == "") {
+        return res.send("Todos os campos são obrigatórios!")
+    }
 
-    // Redireciona para a página inicial
-    return res.redirect("/");
+    // Coloca novo doador dentro do banco de dados
+    const query = `
+        INSERT INTO donors ("donor_name", "donor_email", "donor_blood")
+        VALUES ($1, $2, $3)
+    `
+    const values = [name, email, blood]
+
+    db.query(query, values, function(err) {
+        // Fluxo de erro
+        if (err) return res.send("Erro no banco de dados.")
+
+        // Fluxo ideal
+        return res.redirect("/")
+    })
 })
 
 // Abre porta 3000 para criar servidor
