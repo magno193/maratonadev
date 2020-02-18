@@ -1,0 +1,11 @@
+{
+  "name": "maratonadev",
+  "version": "1.0.0",
+  "main": "scripts.js",
+  "repository": "http://github.com/magno193/maratonadev.git",
+  "author": "Alexandre Ferreira <alexmlf93@gmail.com.br>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
