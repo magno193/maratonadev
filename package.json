@@ -5,7 +5,11 @@
   "repository": "http://github.com/magno193/maratonadev.git",
   "author": "Alexandre Ferreira <alexmlf93@gmail.com.br>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2"
   }
 }
