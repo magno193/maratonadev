@@ -149,6 +149,12 @@ main .donors {
     transform: rotate(-45deg);
 }
 
+.donor p {
+    margin-top: 24px;
+    margin-bottom: 64px;
+    font-size: 14px;
+}
+
 /* FOOTER */
 footer {
     margin-top: auto;
